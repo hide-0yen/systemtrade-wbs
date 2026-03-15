@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WBS CURRENT — systemtrade v3.8.5</title>
+  <title>WBS CURRENT — systemtrade v3.8.7</title>
   <style>
     :root {
       --bg: #f8fafc;
@@ -890,10 +890,10 @@
 
   <!-- Navigation -->
   <nav class="nav">
-    <span class="nav-title">systemtrade WBS v3.8.6</span>
+    <span class="nav-title">systemtrade WBS v3.8.7</span>
     <a href="#section-dep">施策依存関係図</a>
-    <a href="#section-running">実行中 (36件)</a>
-    <a href="#section-planned">計画中 (61件)</a>
+    <a href="#section-running">実行中 (37件)</a>
+    <a href="#section-planned">計画中 (60件)</a>
     <a href="#section-hold">保留中</a>
     <a href="#section-done">完了済み</a>
     <a href="#section-milestone">マイルストーン</a>
@@ -966,7 +966,7 @@
       -->
         <div class="dep-wrap">
           <div class="dep-graph-container" id="dep-fx" style="position:relative; display:grid;
-                    grid-template-columns: 80px repeat(10, minmax(120px,1fr));
+                    grid-template-columns: 80px repeat(11, minmax(120px,1fr));
                     min-width: 1300px;
                     border: 1px solid var(--border);
                     border-radius: 8px;
@@ -1029,7 +1029,15 @@
                 <span class="node-date">🔄 03-15〜</span>
               </div>
             </div>
-            <!-- col11: (空き) NEW-29 は完了済みのため依存関係図から除外 -->
+            <!-- col11: NEW-31 Dry-Run中 -->
+            <div class="dep-cell" style="grid-column:11; grid-row:1;">
+              <div class="dep-node dn-dry" data-id="NEW31"
+                data-tip="高確率局面(ADX>30+Close>SMA200+JST13-17)限定でMIN_SCORE 1.9→1.7緩和。本番デプロイ済み(enabled=false)。Go/No-Go: 緩和発火≥5件・誤発火0件">
+                <span class="node-id">NEW-31</span>
+                <span class="node-name">高確率局面<br />閾値緩和</span>
+                <span class="node-date">🔄 03-15〜</span>
+              </div>
+            </div>
             <!-- col12: NEW-30 Dry-Run中 -->
             <div class="dep-cell" style="grid-column:12; grid-row:1;">
               <div class="dep-node dn-dry" data-id="NEW30"
@@ -1097,7 +1105,7 @@
             <div class="dep-row-label dep-row-label-ms" style="grid-column:1; grid-row:2;">
               🔑 判定<span class="phase-period">03-26</span>
             </div>
-            <div style="grid-column:2/12; grid-row:2;
+            <div style="grid-column:2/13; grid-row:2;
                       display:flex; align-items:center; gap:16px;
                       padding:10px 16px;
                       background:var(--bg);
@@ -1156,7 +1164,7 @@
             <div class="dep-row-label dep-row-label-ms" style="grid-column:1; grid-row:4;">
               🔑 判定<span class="phase-period">04-21</span>
             </div>
-            <div style="grid-column:2/12; grid-row:4;
+            <div style="grid-column:2/13; grid-row:4;
                       display:flex; align-items:center; gap:16px;
                       padding:10px 16px;
                       background:var(--bg);
@@ -1225,7 +1233,7 @@
             <div class="dep-row-label" style="grid-column:1; grid-row:7;">
               🎯 GOAL<span class="phase-period">2026-12</span>
             </div>
-            <div style="grid-column:2/12; grid-row:7;
+            <div style="grid-column:2/13; grid-row:7;
                       display:flex; align-items:center; justify-content:center;
                       padding:12px 16px;">
               <div class="dep-node dn-goal" data-id="GOAL" data-tip="月利50万円達成。資産1億円ロードマップ標準ケース: 2030年4月">
@@ -1439,7 +1447,7 @@
        プロジェクト一覧 — 実行中
        ════════════════════════════════════════════════ -->
     <section class="section" id="section-running">
-      <div class="section-title">🔄 実行中プロジェクト (36件)</div>
+      <div class="section-title">🔄 実行中プロジェクト (37件)</div>
       <div class="card">
         <table>
           <thead>
@@ -1951,6 +1959,23 @@
               <td><span class="badge b-dry">🔄 Dry-Run</span></td>
               <td class="td-doc"><code>_fxTradingEngine/.docs/409_new30_deployment_procedure.md</code></td>
             </tr>
+            <tr>
+              <td><strong>NEW-31</strong></td>
+              <td>🔄 [FX] 高確率局面限定スコア閾値緩和（ADX強トレンド・流動性高時間帯）</td>
+              <td>2026-03-15</td>
+              <td>2026-04-01</td>
+              <td>
+                <div class="progress-wrap">
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width:10%"></div>
+                  </div><span class="progress-text">10%</span>
+                </div>
+              </td>
+              <td>発火頻度+20〜40%（精度維持）</td>
+              <td>★★★★☆</td>
+              <td><span class="badge b-dry">🔄 Dry-Run</span></td>
+              <td class="td-doc"><code>_fxTradingEngine/.docs/415_new31_production_deployment_procedure.md</code></td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -1960,7 +1985,7 @@
        計画中
        ════════════════════════════════════════════════ -->
     <section class="section" id="section-planned">
-      <div class="section-title">⏳ 計画中 (61件)</div>
+      <div class="section-title">⏳ 計画中 (60件)</div>
       <div class="card">
         <h4>🆕 新規追加施策（ROI⭐3以上）</h4>
         <table>
@@ -2303,18 +2328,7 @@
               <td>「実運用データが何件・何ヶ月蓄積されたら戦略を有効と判断するか」の定量的閾値を設計・文書化する。設計項目: ①最低トレード件数（統計的有意性: 例 n≥30）、②Go/No-Go判定指標（実RR比、勝率、破産確率の許容乖離率）、③陳腐化検知の閾値（例: 直近30件の勝率がバックテスト比-10%以上低下で警告）。SYS-MON-01の監視基盤と連携し、自動アラートに組み込む。</td>
               <td>SYS-MON-01完了後、各施策のGo/No-Go基準ドキュメント（既存）参照</td>
             </tr>
-            <!-- NEW-29 完了済み（2026-03-15）、NEW-30 実行中 -->
-            <tr>
-              <td><strong>NEW-31</strong></td>
-              <td>[FX] 高確率局面限定スコア閾値緩和（ADX強トレンド・流動性高時間帯）</td>
-              <td>発火頻度改善</td>
-              <td>★★★★☆</td>
-              <td>無料</td>
-              <td>5〜8日</td>
-              <td>高確率局面のみ発火増加（精度を維持しながら頻度向上）</td>
-              <td>MIN_TOTAL_SCORE=1.9を全状況均一適用する現行設計を見直し、「高確率局面」を定義してそこだけ閾値を1.7に緩和。緩和条件: ①ADX&gt;30（強トレンド）かつ価格がSMA200より上、②ロンドン・NYオーバーラップ時間帯（13:00〜17:00 JST、流動性ピーク）。上記以外は現行1.9を維持。RNG-E1（レンジ時2.5→1.8緩和）の対称施策。NEW-29の感度分析で緩和幅を確定してから実装する。</td>
-              <td>NEW-29（感度分析）✅完了済み、FX-ADD-A2（レジーム識別、既存）、unified_signal_evaluator.py（既存）</td>
-            </tr>
+            <!-- NEW-29 完了済み（2026-03-15）、NEW-30/31 実行中 -->
             <tr>
               <td><strong>NEW-32</strong></td>
               <td>[FX] マルチタイムフレーム整合性ボーナス（上位足方向一致でスコア加算）</td>
@@ -3569,7 +3583,7 @@
   </div><!-- /.container -->
 
   <div class="page-footer">
-    systemtrade WBS v3.8.6 &nbsp;|&nbsp; 更新日: 2026-03-15 &nbsp;|&nbsp;
+    systemtrade WBS v3.8.7 &nbsp;|&nbsp; 更新日: 2026-03-15 &nbsp;|&nbsp;
     次回更新予定: 2026-03-26（FX-P-TP4-DRYRUN Go/No-Go）/ 2026-05-25（Phase T8 Go/No-Go）&nbsp;|&nbsp;
     管理者: htada &nbsp;|&nbsp; Generated by Claude Code
   </div>
