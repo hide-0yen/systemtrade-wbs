@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WBS CURRENT — systemtrade v3.8.4</title>
+  <title>WBS CURRENT — systemtrade v3.8.5</title>
   <style>
     :root {
       --bg: #f8fafc;
@@ -890,10 +890,10 @@
 
   <!-- Navigation -->
   <nav class="nav">
-    <span class="nav-title">systemtrade WBS v3.8.4</span>
+    <span class="nav-title">systemtrade WBS v3.8.5</span>
     <a href="#section-dep">施策依存関係図</a>
-    <a href="#section-running">実行中 (35件)</a>
-    <a href="#section-planned">計画中 (59件)</a>
+    <a href="#section-running">実行中 (37件)</a>
+    <a href="#section-planned">計画中 (62件)</a>
     <a href="#section-hold">保留中</a>
     <a href="#section-done">完了済み</a>
     <a href="#section-milestone">マイルストーン</a>
@@ -907,7 +907,7 @@
   <div class="page-header">
     <h1>WBS CURRENT — systemtrade</h1>
     <div class="meta">
-      <span>更新日: 2026-03-02</span>
+      <span>更新日: 2026-03-15</span>
       <span>Version: 3.8.1</span>
       <span>FX: GMO Coin FX + OANDA &nbsp;|&nbsp; 日本株: Kabustation</span>
     </div>
@@ -1026,6 +1026,24 @@
                 data-tip="CFTC COTフィルター（機関投資家ポジション）。enabled=true 有効化済み 2026-03-15。Go/No-Go: 1ヶ月後">
                 <span class="node-id">NEW-03</span>
                 <span class="node-name">CFTC COT<br />フィルター</span>
+                <span class="node-date">🔄 03-15〜</span>
+              </div>
+            </div>
+            <!-- col11: NEW-29 完了 -->
+            <div class="dep-cell" style="grid-column:11; grid-row:1;">
+              <div class="dep-node dn-done" data-id="NEW29"
+                data-tip="FX+JS閾値感度分析完了 2026-03-15。閾値1.9→1.8で発火件数ほぼ同数、1.7以下で急増。NEW-31の閾値設計根拠として活用">
+                <span class="node-id">NEW-29</span>
+                <span class="node-name">閾値感度分析<br />✅ 完了</span>
+                <span class="node-date">✅ 03-15完了</span>
+              </div>
+            </div>
+            <!-- col12: NEW-30 Dry-Run中 -->
+            <div class="dep-cell" style="grid-column:12; grid-row:1;">
+              <div class="dep-node dn-dry" data-id="NEW30"
+                data-tip="Tier重み月次自動更新。FX: 毎月1日08:00/JS: 09:00 launchd登録済み 2026-03-15。Practice Mode解除後2026-04-22から本番書き換え開始">
+                <span class="node-id">NEW-30</span>
+                <span class="node-name">Tier重み<br />月次更新</span>
                 <span class="node-date">🔄 03-15〜</span>
               </div>
             </div>
@@ -1429,7 +1447,7 @@
        プロジェクト一覧 — 実行中
        ════════════════════════════════════════════════ -->
     <section class="section" id="section-running">
-      <div class="section-title">🔄 実行中プロジェクト (35件)</div>
+      <div class="section-title">🔄 実行中プロジェクト (37件)</div>
       <div class="card">
         <table>
           <thead>
@@ -1924,6 +1942,40 @@
               <td><span class="badge b-dry">🔄 Dry-Run</span></td>
               <td class="td-doc"><code>_jsTradingEngine/.docs/phase_t8/335_new04_dryrun_deployment_procedure.md</code></td>
             </tr>
+            <tr>
+              <td><strong>NEW-29</strong></td>
+              <td>🔄 [FX+JS] シグナルスコア閾値感度分析（発火件数×勝率トレードオフ定量化）</td>
+              <td>2026-03-15</td>
+              <td>2026-03-15</td>
+              <td>
+                <div class="progress-wrap">
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width:100%"></div>
+                  </div><span class="progress-text">100%</span>
+                </div>
+              </td>
+              <td>閾値1.5〜2.0の発火件数定量把握→以降の閾値設計意思決定根拠</td>
+              <td>★★★★★</td>
+              <td><span class="badge b-done">✅ 完了</span></td>
+              <td class="td-doc"><code>_fxTradingEngine/.docs/404_new29_execution_procedure.md</code></td>
+            </tr>
+            <tr>
+              <td><strong>NEW-30</strong></td>
+              <td>🔄 [FX+JS] 指標別Tier重みの実績ベース定期更新サイクル（launchd登録済み）</td>
+              <td>2026-03-15</td>
+              <td>2026-04-22</td>
+              <td>
+                <div class="progress-wrap">
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width:10%"></div>
+                  </div><span class="progress-text">10%</span>
+                </div>
+              </td>
+              <td>勝率+3〜8%・Tier重みの陳腐化防止（Practice Mode解除後2026-04-22から本番書き換え開始）</td>
+              <td>★★★★☆</td>
+              <td><span class="badge b-dry">🔄 Dry-Run</span></td>
+              <td class="td-doc"><code>_fxTradingEngine/.docs/409_new30_deployment_procedure.md</code></td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -1933,7 +1985,7 @@
        計画中
        ════════════════════════════════════════════════ -->
     <section class="section" id="section-planned">
-      <div class="section-title">⏳ 計画中 (59件)</div>
+      <div class="section-title">⏳ 計画中 (62件)</div>
       <div class="card">
         <h4>🆕 新規追加施策（ROI⭐3以上）</h4>
         <table>
@@ -2276,29 +2328,7 @@
               <td>「実運用データが何件・何ヶ月蓄積されたら戦略を有効と判断するか」の定量的閾値を設計・文書化する。設計項目: ①最低トレード件数（統計的有意性: 例 n≥30）、②Go/No-Go判定指標（実RR比、勝率、破産確率の許容乖離率）、③陳腐化検知の閾値（例: 直近30件の勝率がバックテスト比-10%以上低下で警告）。SYS-MON-01の監視基盤と連携し、自動アラートに組み込む。</td>
               <td>SYS-MON-01完了後、各施策のGo/No-Go基準ドキュメント（既存）参照</td>
             </tr>
-            <!-- ── 勝率・発火頻度改善（2026-03-14追加） ── -->
-            <tr>
-              <td><strong>NEW-29</strong></td>
-              <td>[FX+JS] シグナルスコア閾値感度分析（発火件数×勝率トレードオフ定量化）</td>
-              <td>分析・検証</td>
-              <td>★★★★★</td>
-              <td>無料</td>
-              <td>3〜5日</td>
-              <td>「閾値を0.1下げると発火件数+X%・勝率-Y%」を定量把握→以降の全施策の意思決定根拠を獲得</td>
-              <td>過去のSIM Parquetファイルを分析し、スコア1.5〜1.9のシグナルが実際に何件存在するか計測。仮に各閾値（1.5/1.6/1.7/1.8）で通過させた場合の事後勝率を算出し、発火件数増加率と勝率低下率のトレードオフを定量化する。現時点では「閾値を下げると何件増えるか」すら計測されておらず、以降のNEW-31（高確率局面緩和）・RNG-E1調整・NEW-27（Parabolicノイズ解消後）の閾値設計すべての判断根拠となる。FX: calcFXAnalyticsDatas2simFXSwingTrade/、JS: calcJSAnalyticsDatas2simJSSwingTrade/。</td>
-              <td>SIM Parquetファイル蓄積（既存）、unified_signal_evaluator.py・trading_config.json（既存）</td>
-            </tr>
-            <tr>
-              <td><strong>NEW-30</strong></td>
-              <td>[FX+JS] 指標別Tier重みの実績ベース定期更新サイクル</td>
-              <td>勝率改善</td>
-              <td>★★★★☆</td>
-              <td>無料</td>
-              <td>8〜12日</td>
-              <td>市場環境変化への追従・勝率+3〜8%・Tier重みの陳腐化防止</td>
-              <td>signal_quality_scorer.py の Tier重み値は Phase 2.9（数年前）の実測データで固定されている。実運用データ蓄積後、直近6ヶ月の実トレード損益×発火指標リストから指標別勝率を再計算し、勝率≥50%→1.0・45〜50%→0.6・40〜45%→0.3・&lt;40%→0.0 へ自動更新するスクリプトを実装。月1回（FX-ADD-D1ウォークフォワードと連動）launchdで実行。JS側はTierClassifier基盤（既存）を活用。</td>
-              <td>実運用データ6ヶ月以上・100件以上、FX-ADD-D1（ウォークフォワード）と連動推奨</td>
-            </tr>
+            <!-- NEW-29/NEW-30 は実行中プロジェクトセクションへ移動（2026-03-15） -->
             <tr>
               <td><strong>NEW-31</strong></td>
               <td>[FX] 高確率局面限定スコア閾値緩和（ADX強トレンド・流動性高時間帯）</td>
@@ -2386,6 +2416,96 @@
                 既存の<code>run_fast_grid_search.py</code>をレンジ相場期間データのみでも実行できるよう<code>--regime range</code>フラグを追加。トレンド相場と独立したパラメータセットを発見し、レジーム切替時に動的に適用。RNG-A1〜E2の実績データが3ヶ月以上蓄積後に実施。
               </td>
               <td>RNG-A1〜E2の実績データ3ヶ月以上蓄積、run_fast_grid_search.py（既存）</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>🆕 米国株システムトレード新規施策（2026-03-15追加）</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>施策名</th>
+              <th>カテゴリ</th>
+              <th>ROI</th>
+              <th>コスト</th>
+              <th>工数目安</th>
+              <th>期待効果</th>
+              <th>概要</th>
+              <th>前提条件</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>US-T1</strong></td>
+              <td>[US] 米国株バックテスト基盤構築（S&P500 × 75指標）</td>
+              <td>新規エンジン</td>
+              <td>★★★★★</td>
+              <td>無料（yfinance）</td>
+              <td>15〜21日</td>
+              <td>S&P500バックテスト実行・SL/TP最適パラメータ発見</td>
+              <td>
+                <code>_usTradingEngine/</code>独立エンジンとして新規構築。yfinance で S&P500 全500銘柄の日足 OHLCV を取得し、既存75指標計算エンジンを流用してシグナルスコアを生成。バックテストエンジン（JS版流用）でSL/TPグリッドサーチを実施し、
+                シャープ比≥1.0・最大DD≤15%のパラメータを発見する。moomoo口座開設前に着手可能。
+              </td>
+              <td>なし（即着手可能）<br><small>.docs/366_us_trading_engine_requirements.md</small></td>
+            </tr>
+            <tr>
+              <td><strong>US-T2</strong></td>
+              <td>[US] moomoo APIクライアント実装・シミュレーション口座接続</td>
+              <td>新規エンジン</td>
+              <td>★★★★☆</td>
+              <td>無料（API利用料なし）</td>
+              <td>10〜14日</td>
+              <td>moomoo OpenAPI経由での注文・リアルタイムデータ取得の実現</td>
+              <td>
+                moomoo SDK を使った<code>MoomooClient</code>クラスを実装。スナップショット取得（最大400銘柄/回 × 2回でS&P500対応）、指値注文、VIX取得を実装。
+                シミュレーション口座での注文テストを経てGo/No-Go判定。
+              </td>
+              <td>moomoo証券口座開設完了・シミュレーション口座有効化</td>
+            </tr>
+            <tr>
+              <td><strong>US-T3</strong></td>
+              <td>[US] 米国株トレーディングエンジン本番実装（launchd 夜間自動売買）</td>
+              <td>新規エンジン</td>
+              <td>★★★★★</td>
+              <td>無料</td>
+              <td>10〜14日</td>
+              <td>JST 23:30〜06:00の夜間完全自動売買稼働</td>
+              <td>
+                VIX連動5段階リスク管理・Kelly基準ポジションサイジング・指値注文・サーキットブレーカーを備えた本番エンジンを実装。
+                <code>daily_us_preparation.py</code>（JST 22:00）と<code>daily_us_trading.py</code>（JST 23:30〜06:00）をlaunchdで自動実行。
+                取引結果は PostgreSQL <code>us_trade_records</code>テーブルに記録。
+              </td>
+              <td>US-T1 Go・US-T2 Go・moomoo本番口座有効化</td>
+            </tr>
+            <tr>
+              <td><strong>US-T4</strong></td>
+              <td>[US] 米国株 Dry-Run（S&P500、4週間検証）</td>
+              <td>Dry-Run</td>
+              <td>★★★★★</td>
+              <td>無料</td>
+              <td>28日間</td>
+              <td>月次シャープ比≥1.0・最大DD≤15%確認後に本番移行</td>
+              <td>
+                シミュレーション口座でUS-T3エンジンを4週間稼働。日本株・FXエンジンと時間帯が完全分離（JST 23:30〜06:00）のため既存Dry-Runへの影響ゼロ。
+                Go/No-Go判定基準: シャープ比≥1.0・最大DD≤15%・月平均取引件数≥10件。
+              </td>
+              <td>US-T3実装完了</td>
+            </tr>
+            <tr>
+              <td><strong>US-P1</strong></td>
+              <td>[US] 米国株 Practice Mode（本番口座・初期資金 TBD）</td>
+              <td>本番稼働</td>
+              <td>★★★★★</td>
+              <td>取引手数料のみ</td>
+              <td>—</td>
+              <td>+100,000〜200,000円/月（初期推定）</td>
+              <td>
+                US-T4 Dry-Run Go判定後に本番口座で稼働開始。初期資金・最大ポジション数はDry-Run結果を踏まえて決定。
+                FX・JS・米国株の3エンジン並行稼働体制を確立。
+              </td>
+              <td>US-T4 Go判定</td>
             </tr>
           </tbody>
         </table>
@@ -3474,7 +3594,7 @@
   </div><!-- /.container -->
 
   <div class="page-footer">
-    systemtrade WBS v3.7.5 &nbsp;|&nbsp; 更新日: 2026-02-28 &nbsp;|&nbsp;
+    systemtrade WBS v3.8.5 &nbsp;|&nbsp; 更新日: 2026-03-15 &nbsp;|&nbsp;
     次回更新予定: 2026-03-26（FX-P-TP4-DRYRUN Go/No-Go）/ 2026-05-25（Phase T8 Go/No-Go）&nbsp;|&nbsp;
     管理者: htada &nbsp;|&nbsp; Generated by Claude Code
   </div>
