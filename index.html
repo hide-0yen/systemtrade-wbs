@@ -890,10 +890,10 @@
 
   <!-- Navigation -->
   <nav class="nav">
-    <span class="nav-title">systemtrade WBS v3.8.5</span>
+    <span class="nav-title">systemtrade WBS v3.8.6</span>
     <a href="#section-dep">施策依存関係図</a>
-    <a href="#section-running">実行中 (37件)</a>
-    <a href="#section-planned">計画中 (62件)</a>
+    <a href="#section-running">実行中 (36件)</a>
+    <a href="#section-planned">計画中 (61件)</a>
     <a href="#section-hold">保留中</a>
     <a href="#section-done">完了済み</a>
     <a href="#section-milestone">マイルストーン</a>
@@ -1029,15 +1029,7 @@
                 <span class="node-date">🔄 03-15〜</span>
               </div>
             </div>
-            <!-- col11: NEW-29 完了 -->
-            <div class="dep-cell" style="grid-column:11; grid-row:1;">
-              <div class="dep-node dn-done" data-id="NEW29"
-                data-tip="FX+JS閾値感度分析完了 2026-03-15。閾値1.9→1.8で発火件数ほぼ同数、1.7以下で急増。NEW-31の閾値設計根拠として活用">
-                <span class="node-id">NEW-29</span>
-                <span class="node-name">閾値感度分析<br />✅ 完了</span>
-                <span class="node-date">✅ 03-15完了</span>
-              </div>
-            </div>
+            <!-- col11: (空き) NEW-29 は完了済みのため依存関係図から除外 -->
             <!-- col12: NEW-30 Dry-Run中 -->
             <div class="dep-cell" style="grid-column:12; grid-row:1;">
               <div class="dep-node dn-dry" data-id="NEW30"
@@ -1447,7 +1439,7 @@
        プロジェクト一覧 — 実行中
        ════════════════════════════════════════════════ -->
     <section class="section" id="section-running">
-      <div class="section-title">🔄 実行中プロジェクト (37件)</div>
+      <div class="section-title">🔄 実行中プロジェクト (36件)</div>
       <div class="card">
         <table>
           <thead>
@@ -1943,23 +1935,6 @@
               <td class="td-doc"><code>_jsTradingEngine/.docs/phase_t8/335_new04_dryrun_deployment_procedure.md</code></td>
             </tr>
             <tr>
-              <td><strong>NEW-29</strong></td>
-              <td>🔄 [FX+JS] シグナルスコア閾値感度分析（発火件数×勝率トレードオフ定量化）</td>
-              <td>2026-03-15</td>
-              <td>2026-03-15</td>
-              <td>
-                <div class="progress-wrap">
-                  <div class="progress-bar">
-                    <div class="progress-fill" style="width:100%"></div>
-                  </div><span class="progress-text">100%</span>
-                </div>
-              </td>
-              <td>閾値1.5〜2.0の発火件数定量把握→以降の閾値設計意思決定根拠</td>
-              <td>★★★★★</td>
-              <td><span class="badge b-done">✅ 完了</span></td>
-              <td class="td-doc"><code>_fxTradingEngine/.docs/404_new29_execution_procedure.md</code></td>
-            </tr>
-            <tr>
               <td><strong>NEW-30</strong></td>
               <td>🔄 [FX+JS] 指標別Tier重みの実績ベース定期更新サイクル（launchd登録済み）</td>
               <td>2026-03-15</td>
@@ -1985,7 +1960,7 @@
        計画中
        ════════════════════════════════════════════════ -->
     <section class="section" id="section-planned">
-      <div class="section-title">⏳ 計画中 (62件)</div>
+      <div class="section-title">⏳ 計画中 (61件)</div>
       <div class="card">
         <h4>🆕 新規追加施策（ROI⭐3以上）</h4>
         <table>
@@ -2437,20 +2412,6 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>US-T1</strong></td>
-              <td>[US] 米国株バックテスト基盤構築（S&P500 × 75指標）</td>
-              <td>新規エンジン</td>
-              <td>★★★★★</td>
-              <td>無料（yfinance）</td>
-              <td>15〜21日</td>
-              <td>S&P500バックテスト実行・SL/TP最適パラメータ発見</td>
-              <td>
-                <code>_usTradingEngine/</code>独立エンジンとして新規構築。yfinance で S&P500 全500銘柄の日足 OHLCV を取得し、既存75指標計算エンジンを流用してシグナルスコアを生成。バックテストエンジン（JS版流用）でSL/TPグリッドサーチを実施し、
-                シャープ比≥1.0・最大DD≤15%のパラメータを発見する。moomoo口座開設前に着手可能。
-              </td>
-              <td>なし（即着手可能）<br><small>.docs/366_us_trading_engine_requirements.md</small></td>
-            </tr>
-            <tr>
               <td><strong>US-T2</strong></td>
               <td>[US] moomoo APIクライアント実装・シミュレーション口座接続</td>
               <td>新規エンジン</td>
@@ -2699,6 +2660,20 @@
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td><strong>US-T1</strong></td>
+              <td>[US] 米国株バックテスト基盤構築（S&P500 × 11指標・196パターングリッドサーチ）</td>
+              <td>2026-03-15</td>
+              <td>✅ Phase US-T1 完了。yfinance OHLCV取得・11指標スコアリング・USBacktestEngine（RowWrapper最適化）・VIXRiskManager・CircuitBreaker・KellyCriterion・USPositionManager・daily_us_preparation.py（launchd JST 22:00）実装。94テスト全PASS・カバレッジ83%。US-T2（moomoo API）待ち</td>
+              <td class="td-doc"><code>_usTradingEngine/.docs/366〜369_us_t1_*.md</code></td>
+            </tr>
+            <tr>
+              <td><strong>NEW-29</strong></td>
+              <td>[FX+JS] シグナルスコア閾値感度分析（発火件数×勝率トレードオフ定量化）</td>
+              <td>2026-03-15</td>
+              <td>✅ 閾値1.5〜2.0の発火件数・勝率を定量分析。FX: 1.9→1.8で発火件数ほぼ同数・1.7以下で急増。JS: 2.5維持が最適。NEW-31の閾値設計根拠として活用。本番設定変更なし（分析専用施策）</td>
+              <td class="td-doc"><code>_fxTradingEngine/.docs/404_new29_execution_procedure.md</code></td>
+            </tr>
             <tr>
               <td><strong>FX-ADD-A1</strong></td>
               <td>[FX] Multi-Signal Confluence（指標組み合わせ最適化・Confluence Filter実装）</td>
@@ -3594,7 +3569,7 @@
   </div><!-- /.container -->
 
   <div class="page-footer">
-    systemtrade WBS v3.8.5 &nbsp;|&nbsp; 更新日: 2026-03-15 &nbsp;|&nbsp;
+    systemtrade WBS v3.8.6 &nbsp;|&nbsp; 更新日: 2026-03-15 &nbsp;|&nbsp;
     次回更新予定: 2026-03-26（FX-P-TP4-DRYRUN Go/No-Go）/ 2026-05-25（Phase T8 Go/No-Go）&nbsp;|&nbsp;
     管理者: htada &nbsp;|&nbsp; Generated by Claude Code
   </div>
