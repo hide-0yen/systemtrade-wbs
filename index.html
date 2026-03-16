@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WBS CURRENT — systemtrade v3.8.10</title>
+  <title>WBS CURRENT — systemtrade v3.8.11</title>
   <style>
     :root {
       --bg: #f8fafc;
@@ -890,10 +890,10 @@
 
   <!-- Navigation -->
   <nav class="nav">
-    <span class="nav-title">systemtrade WBS v3.8.10</span>
+    <span class="nav-title">systemtrade WBS v3.8.11</span>
     <a href="#section-dep">施策依存関係図</a>
-    <a href="#section-running">実行中 (38件)</a>
-    <a href="#section-planned">計画中 (57件)</a>
+    <a href="#section-running">実行中 (39件)</a>
+    <a href="#section-planned">計画中 (56件)</a>
     <a href="#section-hold">保留中</a>
     <a href="#section-done">完了済み</a>
     <a href="#section-milestone">マイルストーン</a>
@@ -2007,6 +2007,23 @@
               <td><span class="badge b-done">✅ 実装完了</span></td>
               <td class="td-doc"><a href="_usTradingEngine/.docs/374_us_t4_dryrun_deployment_procedure.md">374_デプロイ手順書</a></td>
             </tr>
+            <tr>
+              <td><strong>NEW-01</strong></td>
+              <td>🔄 [FX] RVレジーム判定フィルター（IVフィルター）Dry-Run</td>
+              <td>2026-03-16</td>
+              <td>2026-04-13</td>
+              <td>
+                <div class="progress-wrap">
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width:100%"></div>
+                  </div><span class="progress-text">100%</span>
+                </div>
+              </td>
+              <td>fx_iv_filter.py実装・mainマージ済み。IV/RV比でスコアデルタ±0.3・ロット乗数連動</td>
+              <td>★★★★☆</td>
+              <td><span class="badge b-dry">🔄 Dry-Run</span></td>
+              <td class="td-doc"><a href="_fxTradingEngine/.docs/420_new01_rv_regime_filter_dryrun_deployment_procedure.md">420_デプロイ手順書</a></td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -2016,7 +2033,7 @@
        計画中
        ════════════════════════════════════════════════ -->
     <section class="section" id="section-planned">
-      <div class="section-title">⏳ 計画中 (57件)</div>
+      <div class="section-title">⏳ 計画中 (56件)</div>
       <div class="card">
         <h4>🆕 新規追加施策（ROI⭐3以上）</h4>
         <table>
