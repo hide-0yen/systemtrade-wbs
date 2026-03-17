@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WBS CURRENT — systemtrade v3.8.11</title>
+  <title>WBS CURRENT — systemtrade v3.8.12</title>
   <style>
     :root {
       --bg: #f8fafc;
@@ -890,10 +890,10 @@
 
   <!-- Navigation -->
   <nav class="nav">
-    <span class="nav-title">systemtrade WBS v3.8.11</span>
+    <span class="nav-title">systemtrade WBS v3.8.12</span>
     <a href="#section-dep">施策依存関係図</a>
     <a href="#section-running">実行中 (40件)</a>
-    <a href="#section-planned">計画中 (56件)</a>
+    <a href="#section-planned">計画中 (68件)</a>
     <a href="#section-hold">保留中</a>
     <a href="#section-done">完了済み</a>
     <a href="#section-milestone">マイルストーン</a>
@@ -1446,13 +1446,14 @@
         <!--
         列レーン
           col2: 基盤系   T1〜T4 実装済み → US-P1（本番）
-          col3: 分析拡張  US-T5 指標拡張（計画中）
-          col4: GOAL
+          col3: 分析拡張  US-A1グリッドサーチ / US-A2指標拡張（US-T5）
+          col4: 品質向上  US-B1 VIXテール保険 / US-C1 Kelly / US-D1 決算制限 / US-D2 PEAD
+          col5: GOAL
         -->
         <div class="dep-wrap">
           <div class="dep-graph-container" id="dep-us" style="position:relative; display:grid;
-                    grid-template-columns: 80px repeat(3, minmax(180px,1fr));
-                    min-width: 640px;
+                    grid-template-columns: 80px repeat(4, minmax(180px,1fr));
+                    min-width: 800px;
                     border: 1px solid var(--border);
                     border-radius: 8px;
                     overflow: hidden;">
@@ -1524,23 +1525,95 @@
               </div>
             </div>
             <div class="dep-cell" style="grid-column:3; grid-row:4;">
+              <div class="dep-node dn-plan" data-id="USA1"
+                data-tip="S&P500 × 196パターングリッドサーチ（SL×TP×score）。run_us_backtest.py --grid-search で実行可能。US-P1 Go前に必須">
+                <span class="node-id">US-A1</span>
+                <span class="node-name">グリッドサーチ<br />SL/TP最適化</span>
+                <span class="node-date">📋 Dry-Run並行</span>
+              </div>
               <div class="dep-node dn-plan" data-id="UST5"
-                data-tip="指標拡張（計画中）。S&P500 × 11指標 → 25指標へ拡張。グリッドサーチ再実施">
-                <span class="node-id">US-T5</span>
-                <span class="node-name">指標拡張<br />11→25指標</span>
-                <span class="node-date">📋 計画中</span>
+                data-tip="指標拡張（計画中）。5指標 → 25指標へ拡張（Bollinger・Ichimoku・Volume Surge等）。グリッドサーチ再実施"
+                style="margin-top:6px;">
+                <span class="node-id">US-A2/T5</span>
+                <span class="node-name">指標拡張<br />5→25指標</span>
+                <span class="node-date">📋 US-P1後</span>
+              </div>
+            </div>
+            <div class="dep-cell" style="grid-column:4; grid-row:4;">
+              <div class="dep-node dn-plan" data-id="USB1"
+                data-tip="VIX>25でSLを1.0→0.6ATRに自動縮小。FX NEW-09流用。最大DD -5%期待">
+                <span class="node-id">US-B1</span>
+                <span class="node-name">VIXテール保険<br />SL動的縮小</span>
+                <span class="node-date">📋 US-P1後</span>
+              </div>
+              <div class="dep-node dn-plan" data-id="USC1"
+                data-tip="trading_config.json の kelly.enabled: false → true。Dry-Run実績30件以上が条件。JSで実績あり"
+                style="margin-top:6px;">
+                <span class="node-id">US-C1</span>
+                <span class="node-name">Kelly有効化<br />資金配分最適化</span>
+                <span class="node-date">📋 実績30件後</span>
+              </div>
+              <div class="dep-node dn-plan" data-id="USD1"
+                data-tip="決算3日前〜翌日エントリー禁止。AlpacaのEarnings Calendar活用。JS NEW-02流用。最大DD -5〜10%期待"
+                style="margin-top:6px;">
+                <span class="node-id">US-D1</span>
+                <span class="node-name">決算制限フィルター<br />NEW-02 US版</span>
+                <span class="node-date">📋 US-P1同時</span>
               </div>
             </div>
 
-            <!-- ── R5: 最終目標 ───────────────────────── -->
+            <!-- ── R5: 拡張施策（US-P1安定後）──────────── -->
             <div class="dep-row-label" style="grid-column:1; grid-row:5;">
+              📋 PLAN<span class="phase-period">P1後</span>
+            </div>
+            <div class="dep-cell" style="grid-column:2/3; grid-row:5;">
+              <div class="dep-node dn-plan" data-id="USC2"
+                data-tip="VIX<15時 max_positions=15〜20、VIX>25時=5に動的変更。NEW-23 RiskParityManager流用">
+                <span class="node-id">US-C2</span>
+                <span class="node-name">ポジション数動的調整<br />VIX連動</span>
+                <span class="node-date">📋 Dry-Run後</span>
+              </div>
+            </div>
+            <div class="dep-cell" style="grid-column:3; grid-row:5;">
+              <div class="dep-node dn-plan" data-id="USD2"
+                data-tip="決算EPS+10%超の翌日ロング。Post-Earnings Announcement Drift。JS NEW-04 PEAD流用">
+                <span class="node-id">US-D2</span>
+                <span class="node-name">PEAD戦略<br />決算後ドリフト</span>
+                <span class="node-date">📋 US-D1後</span>
+              </div>
+              <div class="dep-node dn-plan" data-id="USD4"
+                data-tip="XLK/XLE/XLF等セクターETF11本の相対強度モメンタム戦略。NEW-21通貨強弱スコアボードのUSコンセプト"
+                style="margin-top:6px;">
+                <span class="node-id">US-D4</span>
+                <span class="node-name">ETFセクター<br />ローテーション</span>
+                <span class="node-date">📋 US-P1安定後</span>
+              </div>
+            </div>
+            <div class="dep-cell" style="grid-column:4; grid-row:5;">
+              <div class="dep-node dn-plan" data-id="USB2"
+                data-tip="同一セクター最大ポジション数制限。テック偏重（AAPL/MSFT/NVDA/GOOGL/META）リスク分散。JS NEW-08流用">
+                <span class="node-id">US-B2</span>
+                <span class="node-name">セクター集中度制限<br />NEW-08 US版</span>
+                <span class="node-date">📋 US-P1後</span>
+              </div>
+              <div class="dep-node dn-plan" data-id="USB3"
+                data-tip="1月効果・Sell in May・曜日別勝率マトリクス構築。5年分Alpacaデータで集計。NEW-22 US版"
+                style="margin-top:6px;">
+                <span class="node-id">US-B3</span>
+                <span class="node-name">季節性フィルター<br />曜日×月効果</span>
+                <span class="node-date">📋 6ヶ月後</span>
+              </div>
+            </div>
+
+            <!-- ── R6: 最終目標 ───────────────────────── -->
+            <div class="dep-row-label" style="grid-column:1; grid-row:6;">
               🎯 GOAL<span class="phase-period">2026-12</span>
             </div>
-            <div style="grid-column:2/5; grid-row:5;
+            <div style="grid-column:2/6; grid-row:6;
                       display:flex; align-items:center; justify-content:center;
                       padding:12px 16px;">
               <div class="dep-node dn-goal" data-id="GOAL_US"
-                data-tip="FX・JS・US 3エンジン合計で月利50万円達成。US分: 初期+α">
+                data-tip="FX・JS・US 3エンジン合計で月利50万円達成。US分: US-P1+Kelly+PEAD+ETFローテで月+20〜30万円目標">
                 <span class="node-name">🎯 3エンジン並行稼働<br />FX+JS+US 月利50万円+</span>
                 <span class="node-date">2026年12月</span>
               </div>
@@ -2127,7 +2200,7 @@
        計画中
        ════════════════════════════════════════════════ -->
     <section class="section" id="section-planned">
-      <div class="section-title">⏳ 計画中 (56件)</div>
+      <div class="section-title">⏳ 計画中 (68件)</div>
       <div class="card">
         <h4>🆕 新規追加施策（ROI⭐3以上）</h4>
         <table>
@@ -2551,7 +2624,7 @@
           </tbody>
         </table>
 
-        <h4>🆕 米国株システムトレード新規施策（2026-03-15追加）</h4>
+        <h4>🆕 米国株システムトレード新規施策（2026-03-15追加 / 2026-03-17 ブレスト拡充）</h4>
         <table>
           <thead>
             <tr>
@@ -2559,7 +2632,6 @@
               <th>施策名</th>
               <th>カテゴリ</th>
               <th>ROI</th>
-              <th>コスト</th>
               <th>工数目安</th>
               <th>期待効果</th>
               <th>概要</th>
@@ -2571,17 +2643,197 @@
             <!-- US-T4: 2026-03-16 実行中セクションへ移動 -->
             <tr>
               <td><strong>US-P1</strong></td>
-              <td>[US] 米国株 Practice Mode（本番口座・初期資金 TBD）</td>
+              <td>[US] 米国株 本番口座稼働（moomoo OpenAPI / 初期資金 TBD）</td>
               <td>本番稼働</td>
               <td>★★★★★</td>
-              <td>取引手数料のみ</td>
               <td>—</td>
               <td>+100,000〜200,000円/月（初期推定）</td>
-              <td>
-                US-T4 Dry-Run Go判定後に本番口座で稼働開始。初期資金・最大ポジション数はDry-Run結果を踏まえて決定。
-                FX・JS・米国株の3エンジン並行稼働体制を確立。
+              <td>US-T4 Dry-Run Go判定後に本番口座で稼働開始。初期資金・最大ポジション数はDry-Run結果を踏まえて決定。FX・JS・米国株の3エンジン並行稼働体制を確立。</td>
+              <td>US-T4 Go判定（2026-04-13）</td>
+            </tr>
+
+            <!-- ── カテゴリA: バックテスト・パラメータ最適化 ── -->
+            <tr>
+              <td colspan="8" style="background:var(--bg-alt); font-weight:bold; color:var(--text-muted); font-size:0.8rem; padding:4px 8px;">
+                カテゴリA: バックテスト・パラメータ最適化
               </td>
-              <td>US-T4 Go判定</td>
+            </tr>
+            <tr>
+              <td><strong>US-A1</strong></td>
+              <td>[US] S&P500 グリッドサーチ + SL/TPチューニング</td>
+              <td>バックテスト</td>
+              <td>★★★★★</td>
+              <td>1〜2日（実行のみ）</td>
+              <td>勝率+10〜15%・シャープ比+0.3〜0.5</td>
+              <td>
+                現在のSL=1.0/TP=5.0はJSの値を流用した未チューニング状態。<code>run_us_backtest.py --grid-search --workers 4</code> で196パターン並列実行。
+                SL(0.5〜2.0×4段階) × TP(1.5〜6.0×7段階) × score(2.0〜3.5×7段階)。US-P1 Go/No-Go前に必須。
+              </td>
+              <td>US-T4 Dry-Run稼働中（並行実施可）</td>
+            </tr>
+            <tr>
+              <td><strong>US-A2</strong></td>
+              <td>[US] 指標拡張（5指標 → 25指標）= US-T5</td>
+              <td>分析拡張</td>
+              <td>★★★★☆</td>
+              <td>3〜5日</td>
+              <td>シグナル精度向上・月10件以上の発火頻度確保</td>
+              <td>
+                現在のバックテストエンジンはSMA・MACD・RSI・ATRの5指標のみ。JSエンジン75指標から米国株に有効なものを選定しBollinger Bands・Ichimoku・Volume Surge・ATR乗数等を追加。グリッドサーチ再実施。
+              </td>
+              <td>US-A1（ベースライン確立後）</td>
+            </tr>
+
+            <!-- ── カテゴリB: シグナル品質向上（FX/JS流用） ── -->
+            <tr>
+              <td colspan="8" style="background:var(--bg-alt); font-weight:bold; color:var(--text-muted); font-size:0.8rem; padding:4px 8px;">
+                カテゴリB: シグナル品質向上（FX/JS流用）
+              </td>
+            </tr>
+            <tr>
+              <td><strong>US-B1</strong></td>
+              <td>[US] VIX急騰時テール保険（NEW-09 US版）</td>
+              <td>リスク管理</td>
+              <td>★★★★★</td>
+              <td>2日</td>
+              <td>VIX急騰時ドローダウン抑制（最大DD -5%）</td>
+              <td>
+                既存USVIXRiskManager（5段階）は実装済みだが保有中ポジションのSL縮小は未実装。FX NEW-09のロジックをUS版に適用。VIX>25でSLを1.0→0.6ATRに自動縮小。
+                流用元: <code>_fxTradingEngine/core/shared/vix_risk_manager.py</code>
+              </td>
+              <td>US-T4 Dry-Run並行で実装可能</td>
+            </tr>
+            <tr>
+              <td><strong>US-B2</strong></td>
+              <td>[US] セクター集中度制限（NEW-08 US版）</td>
+              <td>リスク管理</td>
+              <td>★★★☆☆</td>
+              <td>1〜2日</td>
+              <td>最大DD -3〜5%・テック偏重リスク低減</td>
+              <td>
+                S&P500はテック偏重になりがち（AAPL・MSFT・NVDA・GOOGL・META）。同一セクターの最大ポジション数を制限。
+                <code>sp500_symbols.json</code> にセクター情報含む（実装済み）。JS NEW-08設計流用。
+              </td>
+              <td>US-P1稼働後</td>
+            </tr>
+            <tr>
+              <td><strong>US-B3</strong></td>
+              <td>[US] 季節性・曜日効果フィルター（NEW-22 US版）</td>
+              <td>シグナル品質</td>
+              <td>★★★☆☆</td>
+              <td>3日</td>
+              <td>不利局面エントリー排除・勝率+3〜5%</td>
+              <td>
+                米国株固有の季節性（1月効果・Sell in May・サンタラリー等）を活用。AlpacaのS&P500過去5年データから曜日×月別勝率マトリクス構築。
+                NEW-22（FX+JS季節性フィルター）のUS版として実装。
+              </td>
+              <td>US-P1稼働6ヶ月後（統計的有意性確保）</td>
+            </tr>
+
+            <!-- ── カテゴリC: 資金効率向上 ── -->
+            <tr>
+              <td colspan="8" style="background:var(--bg-alt); font-weight:bold; color:var(--text-muted); font-size:0.8rem; padding:4px 8px;">
+                カテゴリC: 資金効率向上
+              </td>
+            </tr>
+            <tr>
+              <td><strong>US-C1</strong></td>
+              <td>[US] Kelly基準ポジションサイジング有効化</td>
+              <td>資金管理</td>
+              <td>★★★★★</td>
+              <td>0.5日（設定変更のみ）</td>
+              <td>月利+20〜30%（資金配分最適化）</td>
+              <td>
+                <code>trading_config.json</code> で <code>kelly.enabled: false</code> のまま。現状は均等配分（資金/max_positions）。
+                Kelly有効化で期待値の高いシグナルに資金集中。JSエンジンで実績あり。
+                <code>_usTradingEngine/backtest/kelly_criterion.py</code>（実装済み）。
+              </td>
+              <td>Dry-Run実績 min_trades=30件以上</td>
+            </tr>
+            <tr>
+              <td><strong>US-C2</strong></td>
+              <td>[US] 最大ポジション数の動的調整（VIX連動）</td>
+              <td>資金管理</td>
+              <td>★★★★☆</td>
+              <td>2日</td>
+              <td>低ボラ時の月利+30〜50%（機会損失解消）</td>
+              <td>
+                現在 <code>max_positions=10</code> 固定。VIX&lt;15の低ボラ時は15〜20銘柄、VIX>25の高ボラ時は5銘柄に動的変更。
+                NEW-23 RiskParityManager（FX+JS実装済み）のコンセプト流用。
+              </td>
+              <td>US-T4 Dry-Run完了後（VIX別パフォーマンスデータ取得後）</td>
+            </tr>
+            <tr>
+              <td><strong>US-C3</strong></td>
+              <td>[US] 銘柄ユニバース拡張（S&P500 → NASDAQ100追加）</td>
+              <td>ユニバース拡張</td>
+              <td>★★★☆☆</td>
+              <td>1〜2日</td>
+              <td>シグナル発火頻度+30〜50%</td>
+              <td>
+                現在S&P500（〜500銘柄）のみ。NASDAQ100（QQQ構成銘柄）を追加しハイグロース銘柄のシグナル発火機会を増やす。
+                FXの通貨ペア追加（AUD_JPY等）と同じ考え方。SP500Universeクラスを拡張。
+              </td>
+              <td>US-P1 Go後・バックテストでNASDAQ100単独有効性検証後</td>
+            </tr>
+
+            <!-- ── カテゴリD: 米国株固有の高付加価値施策 ── -->
+            <tr>
+              <td colspan="8" style="background:var(--bg-alt); font-weight:bold; color:var(--text-muted); font-size:0.8rem; padding:4px 8px;">
+                カテゴリD: 米国株固有施策
+              </td>
+            </tr>
+            <tr>
+              <td><strong>US-D1</strong></td>
+              <td>[US] 決算発表前後エントリー制限（NEW-02 US版）</td>
+              <td>シグナル品質</td>
+              <td>★★★★★</td>
+              <td>3日</td>
+              <td>決算ミスによる大損防止・最大DD -5〜10%</td>
+              <td>
+                米国株は決算ミスによる-10〜-20%急落が頻繁。AlpacaのEarnings CalendarエンドポイントまたはOpenFIGI等で決算日を取得し決算3日前〜翌日はエントリー禁止。
+                JS NEW-02（<code>earnings_manager.py</code>）の設計流用。JSで本番稼働実績あり。
+              </td>
+              <td>US-P1開始と同時実装推奨</td>
+            </tr>
+            <tr>
+              <td><strong>US-D2</strong></td>
+              <td>[US] 決算サプライズ後PEADモメンタム（NEW-04 US版）</td>
+              <td>アルファ源泉</td>
+              <td>★★★★☆</td>
+              <td>4〜5日</td>
+              <td>月+3〜5件の高精度シグナル追加</td>
+              <td>
+                Post-Earnings Announcement Drift（決算後の株価ドリフト）を活用。決算EPS+10%超の翌日にロングエントリー。S&P500全500銘柄で決算データが豊富。
+                JS NEW-04（<code>pead_filter.py</code>）の設計流用。
+              </td>
+              <td>US-D1（決算制限）実装後</td>
+            </tr>
+            <tr>
+              <td><strong>US-D3</strong></td>
+              <td>[US] 空売り戦略追加（Long/Short両対応）</td>
+              <td>戦略拡張</td>
+              <td>★★★☆☆</td>
+              <td>5〜7日</td>
+              <td>下落相場での収益化・月利の安定化</td>
+              <td>
+                現在は買いのみ（Long-only）。moomoo OpenAPIは空売りに対応。RSI>70 + 売りスコアでショートエントリー追加。
+                FXエンジンのBUY/SELL両対応ロジック参考。空売り規制（SSR: Short Sale Rule）の実装が必要。難易度高め。
+              </td>
+              <td>US-P1 3ヶ月以上安定稼働後</td>
+            </tr>
+            <tr>
+              <td><strong>US-D4</strong></td>
+              <td>[US] ETFセクターローテーション戦略</td>
+              <td>アルファ源泉</td>
+              <td>★★★★☆</td>
+              <td>3〜4日</td>
+              <td>個別株リスク低減 + セクターモメンタム捕捉</td>
+              <td>
+                個別株に加えてセクターETF（XLK・XLE・XLF・XLV・XLI等11セクター）のモメンタムを監視。相対強度の高いセクターETFをポートフォリオに組み入れ。
+                FX NEW-21（通貨強弱スコアボード）と同コンセプト。個別株より流動性高くスプレッド小。
+              </td>
+              <td>US-P1安定稼働後（ETFティッカーリスト追加）</td>
             </tr>
           </tbody>
         </table>
@@ -3698,7 +3950,7 @@
   </div><!-- /.container -->
 
   <div class="page-footer">
-    systemtrade WBS v3.8.7 &nbsp;|&nbsp; 更新日: 2026-03-15 &nbsp;|&nbsp;
+    systemtrade WBS v3.8.12 &nbsp;|&nbsp; 更新日: 2026-03-17 &nbsp;|&nbsp;
     次回更新予定: 2026-03-26（FX-P-TP4-DRYRUN Go/No-Go）/ 2026-05-25（Phase T8 Go/No-Go）&nbsp;|&nbsp;
     管理者: htada &nbsp;|&nbsp; Generated by Claude Code
   </div>
@@ -3757,10 +4009,22 @@
         ['UST4', 'UST4DR'],
         /* Dry-Run → Go/No-Go */
         ['UST4DR', 'US_GO1'],
+        /* Dry-Run → グリッドサーチ（並行） */
+        ['UST4DR', 'USA1'],
         /* Go/No-Go → 本番稼働 */
         ['US_GO1', 'USP1'],
         /* Go/No-Go → 指標拡張 */
         ['US_GO1', 'UST5'],
+        /* 本番稼働 → Kelly有効化 */
+        ['USP1', 'USC1'],
+        /* 本番稼働 → 決算制限 */
+        ['USP1', 'USD1'],
+        /* 本番稼働 → ポジション動的調整 */
+        ['USP1', 'USC2'],
+        /* 決算制限 → PEAD */
+        ['USD1', 'USD2'],
+        /* 本番稼働 → ETFローテーション */
+        ['USP1', 'USD4'],
         /* 本番稼働 → GOAL */
         ['USP1', 'GOAL_US']
       ];
