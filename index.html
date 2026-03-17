@@ -892,7 +892,7 @@
   <nav class="nav">
     <span class="nav-title">systemtrade WBS v3.8.11</span>
     <a href="#section-dep">施策依存関係図</a>
-    <a href="#section-running">実行中 (39件)</a>
+    <a href="#section-running">実行中 (40件)</a>
     <a href="#section-planned">計画中 (56件)</a>
     <a href="#section-hold">保留中</a>
     <a href="#section-done">完了済み</a>
@@ -966,8 +966,8 @@
       -->
         <div class="dep-wrap">
           <div class="dep-graph-container" id="dep-fx" style="position:relative; display:grid;
-                    grid-template-columns: 80px repeat(11, minmax(120px,1fr));
-                    min-width: 1300px;
+                    grid-template-columns: 80px repeat(11, minmax(130px,1fr));
+                    min-width: 1520px;
                     border: 1px solid var(--border);
                     border-radius: 8px;
                     overflow: hidden;">
@@ -1029,7 +1029,7 @@
                 <span class="node-date">🔄 03-15〜</span>
               </div>
             </div>
-            <!-- col11: NEW-31 Dry-Run中 -->
+            <!-- col11: NEW-31 + NEW-30 Dry-Run中 -->
             <div class="dep-cell" style="grid-column:11; grid-row:1;">
               <div class="dep-node dn-dry" data-id="NEW31"
                 data-tip="高確率局面(ADX>30+Close>SMA200+JST13-17)限定でMIN_SCORE 1.9→1.7緩和。本番デプロイ済み(enabled=false)。Go/No-Go: 緩和発火≥5件・誤発火0件">
@@ -1037,11 +1037,9 @@
                 <span class="node-name">高確率局面<br />閾値緩和</span>
                 <span class="node-date">🔄 03-15〜</span>
               </div>
-            </div>
-            <!-- col12: NEW-30 Dry-Run中 -->
-            <div class="dep-cell" style="grid-column:12; grid-row:1;">
               <div class="dep-node dn-dry" data-id="NEW30"
-                data-tip="Tier重み月次自動更新。FX: 毎月1日08:00/JS: 09:00 launchd登録済み 2026-03-15。Practice Mode解除後2026-04-22から本番書き換え開始">
+                data-tip="Tier重み月次自動更新。FX: 毎月1日08:00/JS: 09:00 launchd登録済み 2026-03-15。Practice Mode解除後2026-04-22から本番書き換え開始"
+                style="margin-top:6px;">
                 <span class="node-id">NEW-30</span>
                 <span class="node-name">Tier重み<br />月次更新</span>
                 <span class="node-date">🔄 03-15〜</span>
@@ -1441,13 +1439,123 @@
           </div><!-- /#dep-js -->
         </div>
       </div><!-- /.card JS -->
+
+      <!-- ═══ US ═══════════════════════════════════════ -->
+      <div class="card">
+        <h3>🇺🇸 米国株エンジン（moomoo OpenAPI / Alpaca）</h3>
+        <!--
+        列レーン
+          col2: 基盤系   T1〜T4 実装済み → US-P1（本番）
+          col3: 分析拡張  US-T5 指標拡張（計画中）
+          col4: GOAL
+        -->
+        <div class="dep-wrap">
+          <div class="dep-graph-container" id="dep-us" style="position:relative; display:grid;
+                    grid-template-columns: 80px repeat(3, minmax(180px,1fr));
+                    min-width: 640px;
+                    border: 1px solid var(--border);
+                    border-radius: 8px;
+                    overflow: hidden;">
+            <svg class="dep-svg-overlay" id="dep-us-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;
+                      pointer-events:none;overflow:visible;z-index:2;"></svg>
+
+            <!-- ── R1: 実装完了（基盤） ───────────────── -->
+            <div class="dep-row-label dep-row-label-done" style="grid-column:1; grid-row:1;">
+              ✅ DONE<span class="phase-period">03-16</span>
+            </div>
+            <div class="dep-cell" style="grid-column:2; grid-row:1;">
+              <div class="dep-node dn-done" data-id="UST1"
+                data-tip="SP500Universe・KellyCriterion・バックテスト基盤。US-T1〜T3: launchd・DB DDL。2026-03-15 main済み">
+                <span class="node-id">US-T1〜T3</span>
+                <span class="node-name">基盤実装<br />SP500+Kelly+launchd</span>
+                <span class="node-date">✅ 03-15 main済</span>
+              </div>
+              <div class="dep-node dn-done" data-id="UST4"
+                data-tip="Alpaca DataSource + USTradeRecorder。recorder統合。181テスト全PASS。PR#11 squashマージ。2026-03-16 main済み"
+                style="margin-top:6px;">
+                <span class="node-id">US-T4</span>
+                <span class="node-name">Alpaca DataSource<br />+ USTradeRecorder</span>
+                <span class="node-date">✅ 03-16 main済</span>
+              </div>
+            </div>
+
+            <!-- ── R2: Dry-Run（Go/No-Go判定中）──────── -->
+            <div class="dep-row-label" style="grid-column:1; grid-row:2;">
+              🔄 DRY<span class="phase-period">〜04-13</span>
+            </div>
+            <div class="dep-cell" style="grid-column:2; grid-row:2;">
+              <div class="dep-node dn-dry" data-id="UST4DR"
+                data-tip="Dry-Run期間: 2026-03-16〜04-13。Go/No-Go基準: シャープ比≥1.0・最大DD≤15%・月10件以上・DB記録率100%。デプロイ手順書: 374_us_t4_dryrun_deployment_procedure.md">
+                <span class="node-id">US-T4 Dry-Run</span>
+                <span class="node-name">本番シミュレーション<br />Alpaca夜間売買</span>
+                <span class="node-date">🔄 〜04-13 判定</span>
+              </div>
+            </div>
+
+            <!-- ── R3: Go/No-Go マイルストーン ────────── -->
+            <div class="dep-row-label dep-row-label-ms" style="grid-column:1; grid-row:3;">
+              🔑 判定<span class="phase-period">04-13</span>
+            </div>
+            <div style="grid-column:2/5; grid-row:3;
+                      display:flex; align-items:center; gap:16px;
+                      padding:10px 16px;
+                      background:var(--bg);
+                      border-bottom:1px solid var(--border);">
+              <div class="dep-node dn-milestone" data-id="US_GO1"
+                data-tip="Go条件: シャープ比≥1.0・最大DD≤15%・月10件以上・DB記録率100%。Go→US-P1（本番口座稼働）へ">
+                <span class="node-name">🔑 Go/No-Go<br />US-T4 Dry-Run判定</span>
+                <span class="node-date">2026-04-13</span>
+              </div>
+              <span style="font-size:0.78rem; color:var(--text-muted); line-height:1.8;">
+                Go → <strong>US-P1 本番口座稼働</strong>
+              </span>
+            </div>
+
+            <!-- ── R4: 本番稼働（Go後） ────────────────── -->
+            <div class="dep-row-label" style="grid-column:1; grid-row:4;">
+              ⏳ NEXT<span class="phase-period">Go後</span>
+            </div>
+            <div class="dep-cell" style="grid-column:2; grid-row:4;">
+              <div class="dep-node dn-wait" data-id="USP1"
+                data-tip="Go/No-Go通過後に本番口座（moomoo OpenAPI）で実取引開始。初期資金TBD。FX・JS・US 3エンジン並行稼働体制">
+                <span class="node-id">US-P1</span>
+                <span class="node-name">本番口座稼働<br />3エンジン並行体制</span>
+                <span class="node-date">⏳ 04-13 Go後</span>
+              </div>
+            </div>
+            <div class="dep-cell" style="grid-column:3; grid-row:4;">
+              <div class="dep-node dn-plan" data-id="UST5"
+                data-tip="指標拡張（計画中）。S&P500 × 11指標 → 25指標へ拡張。グリッドサーチ再実施">
+                <span class="node-id">US-T5</span>
+                <span class="node-name">指標拡張<br />11→25指標</span>
+                <span class="node-date">📋 計画中</span>
+              </div>
+            </div>
+
+            <!-- ── R5: 最終目標 ───────────────────────── -->
+            <div class="dep-row-label" style="grid-column:1; grid-row:5;">
+              🎯 GOAL<span class="phase-period">2026-12</span>
+            </div>
+            <div style="grid-column:2/5; grid-row:5;
+                      display:flex; align-items:center; justify-content:center;
+                      padding:12px 16px;">
+              <div class="dep-node dn-goal" data-id="GOAL_US"
+                data-tip="FX・JS・US 3エンジン合計で月利50万円達成。US分: 初期+α">
+                <span class="node-name">🎯 3エンジン並行稼働<br />FX+JS+US 月利50万円+</span>
+                <span class="node-date">2026年12月</span>
+              </div>
+            </div>
+
+          </div><!-- /#dep-us -->
+        </div>
+      </div><!-- /.card US -->
     </section>
 
     <!-- ════════════════════════════════════════════════
        プロジェクト一覧 — 実行中
        ════════════════════════════════════════════════ -->
     <section class="section" id="section-running">
-      <div class="section-title">🔄 実行中プロジェクト (38件)</div>
+      <div class="section-title">🔄 実行中プロジェクト (40件)</div>
       <div class="card">
         <table>
           <thead>
@@ -1976,35 +2084,21 @@
               <td><span class="badge b-dry">🔄 Dry-Run</span></td>
               <td class="td-doc"><code>_fxTradingEngine/.docs/415_new31_production_deployment_procedure.md</code></td>
             </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="card">
-        <h4>🇺🇸 米国株エンジン</h4>
-        <table>
-          <thead>
-            <tr>
-              <th>施策</th><th>内容</th><th>開始日</th><th>Go/No-Go</th>
-              <th>進捗</th><th>期待効果</th><th>優先度</th><th>状態</th>
-              <th>ドキュメント</th>
-            </tr>
-          </thead>
-          <tbody>
             <tr>
               <td><strong>US-T4</strong></td>
-              <td>✅ [US] 米国株 Dry-Run（Alpaca DataSource + PostgreSQL記録）</td>
+              <td>🔄 [US] 米国株 Dry-Run（Alpaca DataSource + PostgreSQL記録）<br><small style="color:var(--text-muted);">2026-03-16〜04-13 / Go/No-Go: 2026-04-13（シャープ比≥1.0・最大DD≤15%・月10件以上・DB記録率100%）</small></td>
               <td>2026-03-16</td>
               <td>2026-04-13</td>
               <td>
                 <div class="progress-wrap">
                   <div class="progress-bar">
-                    <div class="progress-fill" style="width:100%"></div>
-                  </div><span class="progress-text">100%</span>
+                    <div class="progress-fill" style="width:5%"></div>
+                  </div><span class="progress-text">5%</span>
                 </div>
               </td>
               <td>181テスト全PASS・Alpaca DataSource・USTradeRecorder・PR#11マージ完了</td>
               <td>★★★★★</td>
-              <td><span class="badge b-done">✅ 実装完了</span></td>
+              <td><span class="badge b-dry">🔄 Dry-Run</span></td>
               <td class="td-doc"><a href="_usTradingEngine/.docs/374_us_t4_dryrun_deployment_procedure.md">374_デプロイ手順書</a></td>
             </tr>
             <tr>
@@ -2015,8 +2109,8 @@
               <td>
                 <div class="progress-wrap">
                   <div class="progress-bar">
-                    <div class="progress-fill" style="width:100%"></div>
-                  </div><span class="progress-text">100%</span>
+                    <div class="progress-fill" style="width:5%"></div>
+                  </div><span class="progress-text">5%</span>
                 </div>
               </td>
               <td>fx_iv_filter.py実装・mainマージ済み。IV/RV比でスコアデルタ±0.3・ロット乗数連動</td>
@@ -3658,6 +3752,19 @@
         ['ALPHA', 'GOAL_JS']
       ];
 
+      var US_EDGES = [
+        /* 基盤実装 → Dry-Run */
+        ['UST4', 'UST4DR'],
+        /* Dry-Run → Go/No-Go */
+        ['UST4DR', 'US_GO1'],
+        /* Go/No-Go → 本番稼働 */
+        ['US_GO1', 'USP1'],
+        /* Go/No-Go → 指標拡張 */
+        ['US_GO1', 'UST5'],
+        /* 本番稼働 → GOAL */
+        ['USP1', 'GOAL_US']
+      ];
+
       /* ── 矢印色をCSSカスタムプロパティから取得 ── */
       function getArrowColor() {
         var style = getComputedStyle(document.documentElement);
@@ -3784,6 +3891,7 @@
       function drawAll() {
         drawDepEdges('dep-fx', 'dep-fx-svg', FX_EDGES);
         drawDepEdges('dep-js', 'dep-js-svg', JS_EDGES);
+        drawDepEdges('dep-us', 'dep-us-svg', US_EDGES);
       }
 
       /* DOMContentLoaded 後に描画 */
@@ -3804,11 +3912,13 @@
       if (typeof ResizeObserver !== 'undefined') {
         var fxContainer = document.getElementById('dep-fx');
         var jsContainer = document.getElementById('dep-js');
+        var usContainer = document.getElementById('dep-us');
         var ro = new ResizeObserver(function () {
           requestAnimationFrame(drawAll);
         });
         if (fxContainer) { ro.observe(fxContainer); }
         if (jsContainer) { ro.observe(jsContainer); }
+        if (usContainer) { ro.observe(usContainer); }
       } else {
         window.addEventListener('resize', function () {
           requestAnimationFrame(drawAll);
